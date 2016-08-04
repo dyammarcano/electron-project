@@ -1,33 +1,51 @@
-const electron = require('electron');
+const { app, BrowserWindow, Menu, shell } = require('electron');
+const cfg = require('../config/electron.config');
 
-let mainWindow;
+let menu;
+let mainWindow = null;
 
-function createWindow () {
-  mainWindow = new electron.BrowserWindow({
-    width: 800, height: 600
-  });
-
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
-
-  mainWindow.webContents.openDevTools();
-
-  mainWindow.maximize();
-
-  mainWindow.on('closed', function() {
-    mainWindow = null;
+if (cfg.env === 'development') {
+  require('electron-debug')({
+    showDevTools: 'bottom'
   });
 }
 
-electron.app.on('ready', createWindow);
-
-electron.app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    electron.app.quit();
+    app.quit();
   }
 });
 
-electron.app.on('activate', function () {
+app.on('ready', () => {
+  mainWindow = createWindow();
+});
+
+app.on('activate', () => {
   if (mainWindow === null) {
-    createWindow();
+    mainWindow = createWindow();
   }
 });
+
+function createWindow() {
+  win = new BrowserWindow({
+    show: false,
+    backgroundColor: '#2e2c29',
+    width: 800,
+    height: 600
+  });
+
+  win.loadURL(`file://${__dirname}/index.html`);
+
+  win.maximize();
+
+  win.webContents.on('ready-to-show', () => {
+    win.show();
+    win.focus();
+  });
+
+  win.on('closed', () => {
+    win = null;
+  });
+
+  return win;
+}
