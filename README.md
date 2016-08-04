@@ -1,1 +1,1 @@
-# webpack-obtimize
+# webpack-electron
