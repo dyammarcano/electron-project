@@ -6,7 +6,7 @@ const named = require('vinyl-named');
 gulp.task('electron', electron);
 
 function electron() {
-  return gulp.src(['./src/renderer.js'])
+  return gulp.src(['./src/*.js'])
     .pipe(named())
     .pipe(webpackStream({ config }))
     .pipe(gulp.dest('./dist/'));
