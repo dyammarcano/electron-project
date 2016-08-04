@@ -5,4 +5,4 @@ const hub = new HubRegistry(['./gulp_tasks/*.task.js']);
 
 gulp.registry(hub);
 
-gulp.task('default', gulp.series('copy', 'electron'));
+gulp.task('build', gulp.series('copy', 'electron'));

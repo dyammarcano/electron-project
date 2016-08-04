@@ -1,12 +1,13 @@
 const gulp = require('gulp');
+const config = require('../config/webpack.config');
 const webpackStream = require('webpack-stream');
 const named = require('vinyl-named');
 
-gulp.task('electron', stream);
+gulp.task('electron', electron);
 
-function stream() {
-  return gulp.src('./src/*.js')
-  	.pipe(named())
-    .pipe(webpackStream())
+function electron() {
+  return gulp.src(['./src/renderer.js'])
+    .pipe(named())
+    .pipe(webpackStream({ config }))
     .pipe(gulp.dest('./dist/'));
 }

@@ -1,20 +1,26 @@
-const { app, BrowserWindow, Menu, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, shell, Tray } = require('electron');
 const cfg = require('../config/electron.config');
 
+let tray = null
 let menu;
 let mainWindow = null;
 
-if (cfg.env === 'development') {
-  require('electron-debug')({
-    showDevTools: 'bottom'
-  });
-}
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg)  // prints "ping"
+  event.sender.send('asynchronous-reply', 'pong')
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
+
+if (cfg.env === 'development') {
+  require('electron-debug')({
+    showDevTools: 'bottom'
+  });
+}
 
 app.on('ready', () => {
   mainWindow = createWindow();
@@ -27,6 +33,21 @@ app.on('activate', () => {
 });
 
 function createWindow() {
+
+  tray = new Tray('./resources/icon/png/16.png');
+
+  let contextMenu = Menu.buildFromTemplate([
+    { label: 'Item1', type: 'radio' },
+    { label: 'Item2', type: 'radio' },
+    { label: 'Item3', type: 'radio' },
+    { label: 'Check for Update', key: 'checkForUpdate', click: function () { require('electron').autoUpdater.checkForUpdates() } },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'Command+Q', click: function () { app.quit() } }
+  ]);
+
+  tray.setToolTip('This is my application.');
+  tray.setContextMenu(contextMenu);
+
   win = new BrowserWindow({
     show: false,
     backgroundColor: '#2e2c29',
@@ -45,6 +66,7 @@ function createWindow() {
 
   win.on('closed', () => {
     win = null;
+    tray.destroy();
   });
 
   return win;

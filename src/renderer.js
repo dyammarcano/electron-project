@@ -1,7 +1,14 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const cfg = require('../config/electron.config');
+const { app, BrowserWindow, ipcRenderer, Menu } = require('electron');
 
-require('electron').ipcRenderer.on('loaded' , function(event, data) {
+ipcRenderer.on('asynchronous-reply', (event, arg) => {
+  console.log(arg) // prints "pong"
+})
+
+ipcRenderer.send('asynchronous-message', 'ping')
+
+ipcRenderer.on('loaded' , function(event, data) {
   document.getElementById('title').innerHTML = data.appName + ' App';
   document.getElementById('details').innerHTML = 'built with Electron v' + data.electronVersion;
   document.getElementById('versions').innerHTML = 'running on Node v' + data.nodeVersion + ' and Chromium v' + data.chromiumVersion;
