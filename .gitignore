@@ -4,3 +4,4 @@ package/
 compile/
 .idea/
 npm-debug.*
+config/private.config.js

@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const cfg = require('../config/electron.config');
+const cfg = require('../config/private.config.js');
 
 let mainWindow = null;
 

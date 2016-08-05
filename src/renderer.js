@@ -1,5 +1,5 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-const cfg = require('../config/electron.config.js');
+const cfg = require('../config/private.config.js');
 const { ipcRenderer } = require('electron');
 const { app, nativeImage, Tray, Menu } = require('electron').remote;
 
@@ -8,12 +8,6 @@ ipcRenderer.on('asynchronous-reply', (event, arg) => {
 })
 
 ipcRenderer.send('asynchronous-message', 'ping')
-
-ipcRenderer.on('loaded' , function(event, data) {
-  document.getElementById('title').innerHTML = data.appName + ' App';
-  document.getElementById('details').innerHTML = 'built with Electron v' + data.electronVersion;
-  document.getElementById('versions').innerHTML = 'running on Node v' + data.nodeVersion + ' and Chromium v' + data.chromiumVersion;
-});
 
 /*let trayimage = nativeImage.createFromDataURL(__dirname + '/icon/png/16x16.png');
 
