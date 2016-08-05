@@ -3,3 +3,4 @@ node_modules/
 package/
 compile/
 .idea/
+npm-debug.*
