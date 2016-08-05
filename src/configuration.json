@@ -1,0 +1,9 @@
+{
+  "name": "ng-2-admin-angular-2-admin-template",
+  "targetUrl": "http://akveo.com/ng2-admin",
+  "width": 1280,
+  "height": 800,
+  "showMenuBar": true,
+  "fastQuit": trur,
+  "maximize": true
+}

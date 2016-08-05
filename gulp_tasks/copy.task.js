@@ -1,14 +1,27 @@
 const gulp = require('gulp');
 
-gulp.task('copy', copy);
-gulp.task('resources', resources);
+gulp.task('copy:prod', copyProd);
+gulp.task('copy:dev', copyDev);
 
-function copy () {
-	return gulp.src(['./src/**', '!./src/files', './src/main.js','!./src/renderer.js'])
-  	.pipe(gulp.dest('./dist/'));
+gulp.task('resources:prod', resourcesProd);
+gulp.task('resources:dev', resourcesDev);
+
+function copyProd() {
+	return gulp.src(['./src/**', '!./src/files', './src/main.js', '!./src/renderer.js'])
+		.pipe(gulp.dest('./dist/'));
 }
 
-function resources () {
+function resourcesProd() {
 	return gulp.src(['./resources/**'])
-  	.pipe(gulp.dest('./dist/'));
+		.pipe(gulp.dest('./dist/'));
+}
+
+function copyDev() {
+	return gulp.src(['./src/**'])
+		.pipe(gulp.dest('./tmp/'));
+}
+
+function resourcesDev() {
+	return gulp.src(['./resources/**'])
+		.pipe(gulp.dest('./tmp/'));
 }
