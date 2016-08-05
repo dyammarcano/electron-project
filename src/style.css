@@ -18,5 +18,6 @@ html, body {
 }
 
 .text span {
-  color: darkred;
+  text-decoration: solid;
+  color: #ffc000;
 }

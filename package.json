@@ -10,8 +10,9 @@
   "scripts": {
     "rimraf": "rimraf",
     "view:dev": "npm run rimraf -- tmp && npm run gulp:dev && NODE_ENV=development electron --debug tmp/ -r",
-    "view:prod": "electron dist/",
+    "view:prod": "npm run rimraf -- dist && npm run gulp:prod && electron dist/",
     "gulp:dev":"gulp dev",
+    "gulp:prod":"gulp prod",
     "build": "npm run clean && gulp build",
     "clean": "npm run rimraf -- dist package",
     "clean:install": "npm set progress=false && npm install",
