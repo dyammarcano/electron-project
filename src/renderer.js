@@ -1,9 +1,10 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-const cfg = require('../config/electron.config');
-const { app, BrowserWindow, ipcRenderer, remote, NativeImage, Tray, Menu } = require('electron');
+const cfg = require('../config/electron.config.js');
+const { ipcRenderer } = require('electron');
+const { app, nativeImage, Tray, Menu } = require('electron').remote;
 
 ipcRenderer.on('asynchronous-reply', (event, arg) => {
-  console.log(arg) // prints "pong"
+  console.log(arg); // prints "pong"
 })
 
 ipcRenderer.send('asynchronous-message', 'ping')
@@ -14,7 +15,7 @@ ipcRenderer.on('loaded' , function(event, data) {
   document.getElementById('versions').innerHTML = 'running on Node v' + data.nodeVersion + ' and Chromium v' + data.chromiumVersion;
 });
 
-/*let trayimage = NativeImage.createFromDataUrl(__dirname + '/icon/png/16x16.png');
+/*let trayimage = nativeImage.createFromDataURL(__dirname + '/icon/png/16x16.png');
 
 let tray = new Tray(trayimage);
 
@@ -51,7 +52,6 @@ function node() {
 }
 
 setInterval(node, 60 * 1000 * 30);
-
 setInterval(checkConnection, 60 * 1000 * 5);
 
 function checkConnection() {
@@ -77,7 +77,7 @@ function checkConnection() {
     };
 
     xhr.send(null);
-  };
+  }
 }
 
 node();

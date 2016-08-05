@@ -1,7 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const cfg = require('../config/electron.config');
+const cfg = require('../config/electron.config.js');
 
-let mainWindow = null;
+const mainWindow = null;
+const myWindow = null;
 
 ipcMain.on('asynchronous-message', (event, arg) => {
   console.log(arg)  // prints "ping"
@@ -20,15 +21,26 @@ if (cfg.env === 'development') {
   });
 }
 
+/*const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
+    if (myWindow) {
+      if (myWindow.isMinimized()) myWindow.restore();
+      myWindow.focus();
+    }
+  });
+
+if (shouldQuit) {
+  app.quit();
+}*/
+
 app.on('ready', () => {
   mainWindow = createWindow();
-});
+})
 
 app.on('activate', () => {
   if (mainWindow === null) {
     mainWindow = createWindow();
   }
-});
+})
 
 function createWindow() {
 
@@ -43,14 +55,17 @@ function createWindow() {
 
   win.maximize();
 
+  // Open the DevTools.
+  win.webContents.openDevTools();
+
   win.webContents.on('ready-to-show', () => {
     win.show();
     win.focus();
-  });
+  })
 
   win.on('closed', () => {
     win = null;
-  });
+  })
 
   return win;
 }

@@ -1,0 +1,14 @@
+{
+  "strict": false,
+  "eqeqeq": true,
+  "curly": true,
+  "undef": true,
+  "unused": true,
+  "node": false,
+  "esversion": 6,
+  "quotmark": true
+}
+
+
+
+
