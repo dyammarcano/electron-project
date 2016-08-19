@@ -1,0 +1,23 @@
+html, body {
+  /*height: 100vh;*/
+ /*width: 100vw;*/
+  background-color: #4293B9;
+}
+
+.box-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text {
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+}
+
+.text span {
+  text-decoration: solid;
+  color: #ffc000;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Test App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="box-center">
+      <div class="text">
+        <!-- All of the Node.js APIs are available in this renderer process. -->
+        We are using node <span><script>document.write(process.versions.node)</script></span>,
+        Chromium <span><script>document.write(process.versions.chrome)</script></span>,
+        and Electron <span><script>document.write(process.versions.electron)</script></span>.
+      </div>
+      <img src="images/welcome.png" alt="">
+    </div>
+  </body>
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>
